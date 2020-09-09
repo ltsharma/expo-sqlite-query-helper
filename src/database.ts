@@ -51,7 +51,7 @@ const update = async (
 };
 
 const search = async (
-  param: string | null = null,
+  param: InsertObject | null = null,
   table: string,
   limit: number | null = null
 ) => {

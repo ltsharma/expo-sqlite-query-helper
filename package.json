@@ -8,6 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc -p tsconfig.json"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ltsharma/expo-sqlite-query-helper"
+  },
   "keywords": [
     "expo",
     "react-native",
@@ -18,6 +22,10 @@
   ],
   "author": "ltsharma",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ltsharma/expo-sqlite-query-helper/issues"
+  },
+  "homepage": "https://github.com/ltsharma/expo-sqlite-query-helper#readme",
   "devDependencies": {
     "@types/react": "^16.9.34",
     "@types/validator": "^13.1.0",
