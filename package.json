@@ -1,0 +1,31 @@
+{
+  "name": "expo-sqlite-query-helper",
+  "version": "1.0.0",
+  "description": "SQLite query helper library for expo-sqlite",
+  "main": "./lib/databse.js",
+  "types": "./lib/database.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc -p tsconfig.json"
+  },
+  "keywords": [
+    "expo",
+    "react-native",
+    "sqlite",
+    "expo-sqlite",
+    "expo-sqlite-helper",
+    "sqlite-query-builder"
+  ],
+  "author": "ltsharma",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^16.9.34",
+    "@types/validator": "^13.1.0",
+    "typescript": "^3.8.3"
+  },
+  "peerDependencies": {
+    "expo": "^38.0.10",
+    "expo-sqlite": "^8.2.1",
+    "react": "^16.13.1"
+  }
+}
