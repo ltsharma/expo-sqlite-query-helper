@@ -1,4 +1,4 @@
-# expo-sqlite-query-helper
+# `expo-sqlite` Query Helper 🦮
 
 SQLite query helper library for expo-sqlite
 
