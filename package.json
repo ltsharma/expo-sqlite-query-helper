@@ -1,9 +1,9 @@
 {
   "name": "expo-sqlite-query-helper",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "SQLite query helper library for expo-sqlite",
-  "main": "./lib/databse.js",
-  "types": "./lib/database.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc -p tsconfig.json"
