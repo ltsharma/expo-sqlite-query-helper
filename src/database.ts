@@ -38,9 +38,9 @@ export const insert = async (tableName: string, data: InsertObject[]) => {
         .join(",")
     )
     .join("), (");
-  const query = `insert into ${tableName} (${Object.keys(data[0]).join(
+  const query = `INSERT INTO ${tableName} (${Object.keys(data[0]).join(
     ","
-  )}) values (${valuesQ});`;
+  )}) VALUES (${valuesQ});`;
   return executeSql(query, []);
 };
 
@@ -52,7 +52,7 @@ export const update = async (
   const valuesQ = Object.keys(data).map(
     (cols) => `${cols}=${data[cols] ? `'${data[cols]}'` : "null"}`
   );
-  const query = `update ${tableName} SET ${valuesQ} WHERE ${
+  const query = `UPDATE ${tableName} SET ${valuesQ} WHERE ${
     Object.keys(where)[0]
   }=${Object.values(where)[0]}  ;`;
   return executeSql(query, []);
@@ -65,13 +65,13 @@ export const search = async (
   limit: number | null = null,
   extra: string = ""
 ) => {
-  const query = `select ${extra} * from ${tableName} ${
-    param ? `where ${Object.keys(param)[0]}='${Object.values(param)[0]}'` : ``
+  const query = `SELECT ${extra} * FROM ${tableName} ${
+    param ? `WHERE ${Object.keys(param)[0]}='${Object.values(param)[0]}'` : ``
   } ${
     order_by
       ? `ORDER BY ${Object.keys(order_by)[0]} ${Object.values(order_by)[0]}`
       : ""
-  } ${limit ? `limit ${limit}` : ``} `;
+  } ${limit ? `LIMIT ${limit}` : ``} `;
   return executeSql(query, []);
 };
 
@@ -96,6 +96,6 @@ export const deleteData = async (
 ) => {
   const query = `DELETE FROM ${tableName} ${
     param ? `where ${Object.keys(param)[0]}='${Object.values(param)[0]}'` : ``
-  }`;
+  } ${extra}`;
   return executeSql(query, []);
 };
