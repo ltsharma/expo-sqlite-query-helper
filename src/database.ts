@@ -1,28 +1,33 @@
 import * as SQLite from "expo-sqlite";
 import { ResultRow, Transaction, ResultSet, InsertObject } from "./Types";
-
+let databaseName = "";
 const Databse = (
-  database_name: string = "test1.db",
+  database_name: string = "esqh.db",
   version: string = "1.0"
 ) => {
-  return SQLite.openDatabase(database_name, version);
+  databaseName = database_name;
+  return SQLite.openDatabase(databaseName, version);
 };
 
 const executeSql = async (sql: string, arg: string[] | number[] = []) => {
   return new Promise(
-    (resolve: (arg: ResultRow) => void, reject: (arg: any) => void) =>
+    (
+      resolve: (arg: ResultRow, arg2: number, arg3: number) => void,
+      reject: (arg: any) => void
+    ) =>
       Databse().transaction((tx: Transaction) => {
         tx.executeSql(
           sql,
           arg,
-          (_, { rows }: ResultSet) => resolve(rows),
+          (_, { rows, rowAffected, insertId }: ResultSet) =>
+            resolve(rows, rowAffected, insertId),
           reject
         );
       })
   );
 };
 
-const insert = async (data: InsertObject[], table: string) => {
+const insert = async (tableName: string, data: InsertObject[]) => {
   const valuesQ = data
     .map((values) =>
       Object.values(values)
@@ -30,7 +35,7 @@ const insert = async (data: InsertObject[], table: string) => {
         .join(",")
     )
     .join("), (");
-  const query = `insert into ${table} (${Object.keys(data[0]).join(
+  const query = `insert into ${tableName} (${Object.keys(data[0]).join(
     ","
   )}) values (${valuesQ});`;
   return executeSql(query, []);
