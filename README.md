@@ -107,3 +107,5 @@ search (
 
 Return promise resolving with
 `rows`, `rowsAffected`, `insertId`
+
+DOCUMENTATION WIP 🚧

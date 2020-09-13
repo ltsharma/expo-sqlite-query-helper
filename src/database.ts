@@ -1,7 +1,8 @@
 import * as SQLite from "expo-sqlite";
 import { ResultRow, Transaction, ResultSet, InsertObject } from "./Types";
 let databaseName = "";
-table helperexport const Databse = (
+
+export const Databse = (
   database_name: string = "esqh.db",
   version: string = "1.0"
 ) => {
@@ -34,7 +35,7 @@ export const insert = async (tableName: string, data: InsertObject[]) => {
   const valuesQ = data
     .map((values) =>
       Object.values(values)
-        .map((val: string | null) => (val ? `'${val}'` : "null"))
+        .map((val) => (val ? `'${val.toString().replace(/'/g, "`")}'` : "null"))
         .join(",")
     )
     .join("), (");
