@@ -16,16 +16,21 @@ export const executeSql = async (
 ) => {
   return new Promise(
     (
-      resolve: (arg: ResultRow, arg2: number, arg3: number) => void,
-      reject: (arg: any) => void
+      resolve: (
+        rows: ResultRow,
+        rowAffected: number,
+        insertId: number,
+        lastQuery: string
+      ) => void,
+      reject: (sqlite_error: any, lastQuery: string) => void
     ) =>
       Databse(databaseName).transaction((tx: Transaction) => {
         tx.executeSql(
           sql,
           arg,
           (_, { rows, rowAffected, insertId }: ResultSet) =>
-            resolve(rows, rowAffected, insertId),
-          reject
+            resolve(rows, rowAffected, insertId, sql),
+          (err) => reject(err, sql)
         );
       })
   );
