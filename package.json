@@ -33,7 +33,7 @@
   },
   "peerDependencies": {
     "expo": "^38.0.10",
-    "expo-sqlite": "^8.2.1",
+    "expo-sqlite": "^8.4.0",
     "react": "^16.13.1"
   }
 }
