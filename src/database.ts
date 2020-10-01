@@ -16,7 +16,7 @@ export const executeSql = async (
 ) => {
     return new Promise(
         (
-            resolve: (arg:ResultSet)=> void,
+            resolve: (arg: ResultSet) => void,
             reject: (sqlite_error: any, lastQuery: string) => void
         ) =>
             Databse(databaseName).transaction((tx: Transaction) => {
@@ -24,7 +24,12 @@ export const executeSql = async (
                     sql,
                     arg,
                     (_, { rows, rowAffected, insertId }: ResultSet) =>
-                        resolve({rows, rowAffected, insertId, lastQuery:sql}),
+                        resolve({
+                            rows,
+                            rowAffected,
+                            insertId,
+                            lastQuery: sql
+                        }),
                     (err) => reject(err, sql)
                 );
             })
@@ -32,6 +37,9 @@ export const executeSql = async (
 };
 
 export const insert = async (tableName: string, data: InsertObject[]) => {
+    if (!Array.isArray(data)) {
+        throw `Provided data is not an array please provide array of object to insert, Given data`;
+    }
     const valuesQ = data
         .map((values) =>
             Object.values(values)
@@ -52,6 +60,9 @@ export const update = async (
     data: InsertObject,
     where: { [key: string]: string }
 ) => {
+    if (!Array.isArray(data)) {
+        throw `Provided data is not an array please provide array of object to update, Given data`;
+    }
     const valuesQ = Object.keys(data).map(
         (cols) => `${cols}=${data[cols] ? `'${data[cols]}'` : 'null'}`
     );
