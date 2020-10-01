@@ -167,7 +167,7 @@ await update(
 // Updates a row matches with column 'name' have value 'test' with column 'name' with 'test1' & column 'email' with 'test1@tester.com'
 ```
 
-## Delete
+## Delete Data
 
 Async function to run delete data from the table, Takes table name and object to delete perticular row.
 
@@ -176,7 +176,7 @@ Async function to run delete data from the table, Takes table name and object to
 _under the hood it runs `DELETE FROM table WHERE param{key}=param{value}`_
 
 ```javascript
-import { delete } from 'expo-sqlite-query-helper';
+import { deleteData } from 'expo-sqlite-query-helper';
 ```
 
 ```typescript
@@ -196,8 +196,8 @@ update(
 ### Example
 
 ```javascript
-await delete ('user', { name: 'test' }); // Deletes rows matches with column 'name' have value 'test'
-await delete 'user'; // Deletes all rows from 'user' table
+await deleteData('user', { name: 'test' }); // Deletes rows matches with column 'name' have value 'test'
+await deleteData('user'); // Deletes all rows from 'user' table
 ```
 
 ## Drop Table
