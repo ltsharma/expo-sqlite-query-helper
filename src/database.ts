@@ -1,5 +1,11 @@
 import * as SQLite from 'expo-sqlite';
-import { ResultRow, Transaction, ResultSet, InsertObject } from './Types';
+import {
+    ResultRow,
+    Transaction,
+    ResultSet,
+    InsertObject,
+    SQLError
+} from './Types';
 let databaseName = '';
 
 export const Databse = (
@@ -15,28 +21,28 @@ export const executeSql = async (
     arg: string[] | number[] = []
 ) => {
     return new Promise(
-        (
-            resolve: (
-                rows: ResultRow,
-                rowAffected: number,
-                insertId: number,
-                lastQuery: string
-            ) => void,
-            reject: (sqlite_error: any, lastQuery: string) => void
-        ) =>
+        (resolve: (arg: ResultSet) => void, reject: (err: SQLError) => void) =>
             Databse(databaseName).transaction((tx: Transaction) => {
                 tx.executeSql(
                     sql,
                     arg,
                     (_, { rows, rowAffected, insertId }: ResultSet) =>
-                        resolve(rows, rowAffected, insertId, sql),
-                    (err) => reject(err, sql)
+                        resolve({
+                            rows,
+                            rowAffected,
+                            insertId,
+                            lastQuery: sql
+                        }),
+                    (err) => reject({ error: err, lastQuery: sql })
                 );
             })
     );
 };
 
 export const insert = async (tableName: string, data: InsertObject[]) => {
+    if (!Array.isArray(data)) {
+        throw `Provided data is not an array please provide array of object to insert, Given data`;
+    }
     const valuesQ = data
         .map((values) =>
             Object.values(values)
@@ -57,6 +63,9 @@ export const update = async (
     data: InsertObject,
     where: { [key: string]: string }
 ) => {
+    if (!Array.isArray(data)) {
+        throw `Provided data is not an array please provide array of object to update, Given data`;
+    }
     const valuesQ = Object.keys(data).map(
         (cols) => `${cols}=${data[cols] ? `'${data[cols]}'` : 'null'}`
     );
