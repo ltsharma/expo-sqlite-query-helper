@@ -7,6 +7,7 @@ export interface ResultSet {
     insertId: number;
     rowAffected: number;
     rows: ResultRow;
+    lastQuery?: string;
 }
 export interface Transaction {
     executeSql(sqlStatement: string, params?: string[] | number[], success?: (transaction: Transaction, resultSet: ResultSet) => any, error?: (transaction: Transaction, error: Error) => any): void;

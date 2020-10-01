@@ -249,4 +249,4 @@ await executeSql('SELECT * FROM user WHERE name=?', ['tester']);
 Todo
 
 -   [ ] More parameters & conditions for where clause
--   [ ] Update if exist or Insert function
+-   [ ] to add `Update if exist or Insert` function
