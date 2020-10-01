@@ -70,7 +70,8 @@ createTable(tableName: string, columns: { [key: string]: string });
 await createTable('user', {
     name: 'varchar(100) NOT NULL',
     email: 'varchar(100) NULL'
-}); // Creates a table with name 'user' with columns 'name' with varchar type & 'email' with varchar type
+});
+// Creates a table with name 'user' with columns 'name' with varchar type & 'email' with varchar type
 ```
 
 ## Insert
@@ -92,7 +93,8 @@ insert(table: string, data: InsertObject[]);
 ### Example
 
 ```javascript
-await insert('user', { name: 'test', email: 'test@tester.com' }); //Inserts a row into 'user' table with column 'name' with 'test' & 'email' with 'test@tester.com'
+await insert('user', { name: 'test', email: 'test@tester.com' });
+//Inserts a row into 'user' table with column 'name' with 'test' & 'email' with 'test@tester.com'
 ```
 
 ## Search (Select)
@@ -125,7 +127,8 @@ Return promise resolving with
 ### Example
 
 ```javascript
-const result = await search('user', { name: 'test' }); // Returns rows from table 'user' where it matches column 'name' with value 'test'
+const result = await search('user', { name: 'test' });
+// Returns rows from table 'user' where it matches column 'name' with value 'test'
 ```
 
 ## Update
@@ -160,7 +163,8 @@ await update(
     'user',
     { name: 'test1', email: 'test1@tester.com' },
     { name: 'test' }
-); // Updates a row matches with column 'name' have value 'test' with column 'name' with 'test1' & column 'email' with 'test1@tester.com'
+);
+// Updates a row matches with column 'name' have value 'test' with column 'name' with 'test1' & column 'email' with 'test1@tester.com'
 ```
 
 ## Delete
@@ -215,7 +219,7 @@ dropTable(tableName: string);
 ### Example
 
 ```javascript
-await dropTable('user');
+await dropTable('user'); // Drops table name 'user' from database.
 ```
 
 ## Execute Sql
@@ -237,6 +241,7 @@ executeSql(query: string, arg:string[]);
 
 ```javascript
 await executeSql('SELECT * FROM user WHERE name=?', ['tester']);
+// Selects all rows from 'user' where column 'name' have value 'tester'.
 ```
 
 ---
