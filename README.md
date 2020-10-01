@@ -64,6 +64,15 @@ createTable(tableName: string, columns: { [key: string]: string });
 `tableName` - Name of the table to create.  
 `columns` - Column object, key is name of column, value is type & other arguments for columns (as per sqlite).
 
+### Example
+
+```javascript
+await createTable('user', {
+    name: 'varchar(100) NOT NULL',
+    email: 'varchar(100) NULL'
+}); // Creates a table with name 'user' with columns 'name' with varchar type & 'email' with varchar type
+```
+
 ## Insert
 
 Async function to run insert data into the table, Takes array of objects to insert into specified table.</br> _under the hood it runs `INSERT INTO table (...columns{keys}) values ...(columns{values});`_
@@ -79,6 +88,12 @@ insert(table: string, data: InsertObject[]);
 `tableName` - Name of the table to insert data.  
 `data` - array of objects to insert into table.</br> example: `[{name:"test1",email:"test1@emmail.com"},{name:"test2",email:"test2@exmail.com"}]`.</br> Return promise resolving with
 `rowsAffected, insertId, lastQuery`
+
+### Example
+
+```javascript
+await insert('user', { name: 'test', email: 'test@tester.com' }); //Inserts a row into 'user' table with column 'name' with 'test' & 'email' with 'test@tester.com'
+```
 
 ## Search (Select)
 
@@ -107,6 +122,12 @@ search (
 Return promise resolving with
 `rows`, `rowsAffected`, `insertId`
 
+### Example
+
+```javascript
+const result = await search('user', { name: 'test' }); // Returns rows from table 'user' where it matches column 'name' with value 'test'
+```
+
 ## Update
 
 Async function to run update data in the table, Takes an objects to update into specified table & coulumn.
@@ -132,6 +153,16 @@ update(
 </br> Return promise resolving with
 `rowsAffected, insertId, lastQuery`
 
+### Example
+
+```javascript
+await update(
+    'user',
+    { name: 'test1', email: 'test1@tester.com' },
+    { name: 'test' }
+); // Updates a row matches with column 'name' have value 'test' with column 'name' with 'test1' & column 'email' with 'test1@tester.com'
+```
+
 ## Delete
 
 Async function to run delete data from the table, Takes table name and object to delete perticular row.
@@ -148,7 +179,7 @@ import { delete } from 'expo-sqlite-query-helper';
 update(
     tableName: string,
     param: { [key: string]: string },
-    ectra: string
+    extra: string
 )
 ```
 
@@ -157,6 +188,13 @@ update(
 
 </br> Return promise resolving with
 `rowsAffected, insertId, lastQuery`
+
+### Example
+
+```javascript
+await delete ('user', { name: 'test' }); // Deletes rows matches with column 'name' have value 'test'
+await delete 'user'; // Deletes all rows from 'user' table
+```
 
 ## Drop Table
 
@@ -173,6 +211,33 @@ dropTable(tableName: string);
 ```
 
 `tableName` - Name of the table to create.
+
+### Example
+
+```javascript
+await dropTable('user');
+```
+
+## Execute Sql
+
+Async function to run any raw string query. it takes query string & arg as arg.
+
+```javascript
+import { executeSql } from 'expo-sqlite-query-helper';
+```
+
+```typescript
+executeSql(query: string, arg:string[]);
+```
+
+`query` - SQL Query string.</br>
+`arg` - Optional arguiment to pass to value of query.
+
+### Example
+
+```javascript
+await executeSql('SELECT * FROM user WHERE name=?', ['tester']);
+```
 
 ---
 
