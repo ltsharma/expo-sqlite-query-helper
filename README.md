@@ -214,7 +214,7 @@ import { dropTable } from 'expo-sqlite-query-helper';
 dropTable(tableName: string);
 ```
 
-`tableName` - Name of the table to create.
+`tableName` - Name of the table to drop.
 
 ### Example
 
