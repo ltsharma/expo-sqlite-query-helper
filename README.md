@@ -27,7 +27,7 @@ const App = () => {
         }).then((row, rowAffected, insertID) =>
             console.log('success', row, rowAffected, insertID)
         );
-        insert([{ name: 'Jhon', email: 'jhon@test.com' }], 'user')
+        insert('user', [{ name: 'Jhon', email: 'jhon@test.com' }])
             .then((row, rowAffected, insertID) => {
                 console.log('success', row, rowAffected, insertID);
             })
