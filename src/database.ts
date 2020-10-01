@@ -1,5 +1,11 @@
 import * as SQLite from 'expo-sqlite';
-import { ResultRow, Transaction, ResultSet, InsertObject } from './Types';
+import {
+    ResultRow,
+    Transaction,
+    ResultSet,
+    InsertObject,
+    SQLError
+} from './Types';
 let databaseName = '';
 
 export const Databse = (
@@ -15,10 +21,7 @@ export const executeSql = async (
     arg: string[] | number[] = []
 ) => {
     return new Promise(
-        (
-            resolve: (arg: ResultSet) => void,
-            reject: (sqlite_error: any, lastQuery: string) => void
-        ) =>
+        (resolve: (arg: ResultSet) => void, reject: (err: SQLError) => void) =>
             Databse(databaseName).transaction((tx: Transaction) => {
                 tx.executeSql(
                     sql,
@@ -30,7 +33,7 @@ export const executeSql = async (
                             insertId,
                             lastQuery: sql
                         }),
-                    (err) => reject(err, sql)
+                    (err) => reject({ error: err, lastQuery: sql })
                 );
             })
     );

@@ -10,6 +10,11 @@ export interface ResultSet {
     lastQuery?: string;
 }
 
+export interface SQLError {
+    error: any;
+    lastQuery: string;
+}
+
 export interface Transaction {
     executeSql(
         sqlStatement: string,
